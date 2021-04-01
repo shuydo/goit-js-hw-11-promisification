@@ -5,36 +5,34 @@ const users = [
   { name: 'Lux', active: false },
 ];
 
-const toggleUserState = (allUsers, userName, callback) => {
-  const updatedUsers = allUsers.map(user =>
-    user.name === userName ? { ...user, active: !user.active } : user,
-  );
+// const toggleUserState = (allUsers, userName, callback) => {
 
-  // return new Promise(resolve => {
-  //       resolve allUsers.map(user =>
-  //          user.name === userName ? { ...user, active: !user.active } : user,
-  //        );
-
-  //   });
-
-  callback(updatedUsers);
-  //   return Promise.resolve(updatedUsers);
+const toggleUserState = (allUsers, userName) => {
+  // const updatedUsers = allUsers.map(user =>
+  //   user.name === userName ? { ...user, active: !user.active } : user,
+  // );
+  return new Promise(resolve => {
+    resolve(
+      allUsers.map(user =>
+        user.name === userName ? { ...user, active: !user.active } : user,
+      ),
+    );
+    // callback(updatedUsers);
+  });
 };
 
 const logger = updatedUsers => console.table(updatedUsers);
 
-//    Сейчас работает так
-console.table('u1:');
+console.log('users original');
 console.table(users);
+console.log('');
+console.log('После переписывания функции на работу без callbackFn');
 
-toggleUserState(users, 'Mango', logger);
+//    Сейчас работает так                     !  Нет! Работало так.
 
-console.table('u2:');
-console.table(users);
+// toggleUserState(users, 'Mango', logger);
+// toggleUserState(users, 'Lux', logger);
 
-toggleUserState(users, 'Lux', logger);
-
-//   Должно работать так
-// toggleUserState(users, 'Mango').then(logger);
-
-// toggleUserState(users, 'Lux').then(logger);
+//   Должно работать так                      !  А теперь работает так!
+toggleUserState(users, 'Mango').then(logger);
+toggleUserState(users, 'Lux').then(logger);
