@@ -25,7 +25,7 @@ const logger = updatedUsers => console.table(updatedUsers);
 
 console.log('users original');
 console.table(users);
-console.log('');
+console.log(' ');
 console.log('После переписывания функции на работу без callbackFn');
 
 //    Сейчас работает так                     !  Нет! Работало так.
